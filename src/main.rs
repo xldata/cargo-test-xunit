@@ -10,11 +10,12 @@ use sxd_document::writer::format_document;
 
 
 fn main() {
-
-    println!("Running tests");
+    let args: Vec<String> = std::env::args().collect();
+    println!("Running tests: {:?}", &args[2..]);
 
     let output = Command::new("cargo")
         .arg("test")
+        .args(&args[2..])
         .output()
         .expect("failed to execute command");
 

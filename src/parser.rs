@@ -26,7 +26,7 @@ pub fn parse_test_report(output: Output) -> TestReport {
 
     println!("{}", &stdout);
 
-    let test_results_regex = Regex::new(r"test (?P<name>[\w:]+) \.\.\. (?P<result>[\w]+)").unwrap();
+    let test_results_regex = Regex::new(r"test (?P<name>.+) \.\.\. (?P<result>[\w]+)").unwrap();
     let mut failed = 0;
 
     let test_results : Vec<TestResult> = test_results_regex.captures_iter(stdout)
@@ -51,6 +51,8 @@ pub fn parse_test_report(output: Output) -> TestReport {
             }
         )
         .collect();
+
+    println!("Counted: {}",  test_results.len());
 
     let total = &test_results.len();
 
